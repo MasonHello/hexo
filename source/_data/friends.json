@@ -1,0 +1,30 @@
+[
+  {
+    "avatar": "/medias/t00ls.png",
+    "name": "t00ls",
+    "introduction": "t00ls.cn —— 网络安全技术交流社区，专注攻防技术研究。",
+    "url": "https://www.t00ls.cn",
+    "title": "访问 t00ls"
+  },
+  {
+    "avatar": "/medias/avatar.jpg",
+    "name": "Mason",
+    "introduction": "记录安全研究、漏洞分析与工程实践。",
+    "url": "https://masonhello.github.io/hexo",
+    "title": "访问本站"
+  },
+  {
+    "avatar": "/medias/friend-hexo.png",
+    "name": "Hexo",
+    "introduction": "A fast, simple & powerful blog framework.",
+    "url": "https://hexo.io/",
+    "title": "访问 Hexo"
+  },
+  {
+    "avatar": "/medias/friend-matery.png",
+    "name": "hexo-theme-matery",
+    "introduction": "A Hexo blog theme with Material Design and responsive design.",
+    "url": "https://github.com/blinkfox/hexo-theme-matery",
+    "title": "查看主题"
+  }
+]

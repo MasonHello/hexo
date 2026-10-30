@@ -1,0 +1,276 @@
+/* ==========================================================================
+   参考站皮肤：https://jwt1399.top/ 的 Matery 定制样式（自动比对生成）
+   —— 与主题自带的 matery.css 逐条比较，仅保留取值不同的声明，按选择器覆盖
+   —— 生成时间：2026-10-30T10:03:30.858Z
+   ========================================================================== */
+
+blockquote {
+    border-left: 5px solid #de5448;
+}
+
+.line-numbers-rows {
+    border-right-width: 0px !important;
+}
+
+.line-numbers {
+    padding: 1.5rem 1.5rem 1.5rem 3.5rem !important;
+    margin: 1rem 0 !important;
+    background: #272822;
+    overflow: auto;
+    border-radius: 0.35rem;
+    tab-size: 4;
+}
+
+pre {
+    padding: 2.5rem 1.5rem 1.5rem 1.5rem !important;
+    margin: 1rem 0 !important;
+    background: #272822;
+    overflow: auto;
+}
+
+code {
+    color: #de5448;
+}
+
+.code_lang {
+    font-family: normal;
+}
+
+.code-expand {
+    right: 0px;
+    padding: 7px 10px;
+    z-index: 1;
+}
+
+.code-closed pre::before {
+    height: 0px;
+}
+
+pre[class*="language-"] {
+    padding: 1.2em;
+    margin: .5em 0;
+    color: #e8eaf6;
+    white-space: pre-wrap !important;
+}
+
+code[class*="language-"] {
+    color: #e8eaf6;
+    white-space: pre-wrap !important;
+}
+
+.bg-color {
+    background-image: linear-gradient(to right, #4a85e9 0%, #EC6EAD 100%);
+    opacity: 0.9;
+}
+
+.tag-color {
+    background-image: linear-gradient(to right, #ed4264 0%, #ffedbc 100%);
+}
+
+.left-color {
+    background-image: linear-gradient(to right, #ed4264 0%, #ffedbc 100%);
+}
+
+.right-color {
+    background-image: linear-gradient(to right, #ed4264 0%, #ffedbc 100%);
+}
+
+.text-color {
+    color: #ed4264 !important;
+}
+
+.progress-bar {
+    background: linear-gradient(to right, #BBFFFF 0%, #4b8af4 100%);
+}
+
+header .brand-logo .logo-span {
+    font-size: 2rem;
+}
+
+
+
+.red {
+    background-color: transparent !important;
+}
+
+.reward-link {
+    background-color: #EC6EAD !important;
+}
+
+
+
+
+
+
+#artDetail .post-info .post-category:hover {
+    color: #4A9D64;
+}
+
+#artDetail .reprint {
+    margin: 15px 0 5px 0;
+    margin-bottom: 0.4rem;
+}
+
+#artDetail .reprint .reprint-tip {
+    margin: 0 3px 22px 0;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+#articleContent table {
+    padding: 12px 13px;
+    border: 1px solid #dfe2e5;
+}
+
+th {
+    padding: 12px 13px;
+    border: 1px solid #dfe2e5;
+}
+
+td {
+    padding: 12px 13px;
+    border: 1px solid #dfe2e5;
+}
+
+.chip .tag-length {
+    position: relative;
+    top: 1px;
+}
+
+footer a {
+    color: #dbdbdb;
+}
+
+.top-scroll .btn-floating {
+    background-color: rgba(162,101,228, 0.08);
+}
+
+.block-with-text:before {
+    right: 0;
+}
+
+.block-with-text:after {
+    margin-top: 0.2em;
+}
+
+.nav-menu li .sub-nav li a {
+    padding: 0px;
+}
+
+.nav-show i[aria-hidden=true] {
+    -ms-transition: all .3s;
+}
+
+.menus_item_child {
+    -ms-animation: sub_menus .3s .1s ease both;
+}
+
+.m-nav-item ul {
+    background: rgba(255, 255, 255, .1);
+}
+
+.m-nav-item ul li {
+    width: 245px;
+}
+
+.m-nav-show .m-icon {
+    -ms-transition: all .3s;
+}
+
+.m-nav-item .m-icon {
+    right: 65px;
+}
+
+::-webkit-scrollbar {
+    width: 15px;
+    height: 1px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #009FFF;
+    background-image: -webkit-linear-gradient( 45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent );
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    background: #ededed;
+    border-radius: 10px;
+}
+
+@media only screen and (min-width: 993px) {
+    .container {
+        width: 85%;
+    }
+
+    .head-container {
+        padding: 0px 30px;
+    }
+
+}
+
+/* ==========================================================================
+   全局字体：完全采用 jwt1399.top 的方案
+   ---------------------------------------------------------------------------
+   参考站 /css/my.css：
+       @font-face{ font-family:'JVer'; src:url('/css/Verdana.ttf'); }
+       body { font-family: "Verdana"; }
+       @font-face{ font-family:'JMon'; src:url('/css/Monaco.ttf'); }
+   参考站代码块：Inconsolata, Monaco, Consolas, 'Courier New', Courier, monospace
+
+   这里把 Verdana 铺到全站（正文/标题/导航/卡片/按钮/表单/页脚/TOC…），
+   代码块用其等宽字体栈；中文由系统字体（微软雅黑 / 苹方）承接。
+
+   想要跨平台像素级一致：把 Verdana.ttf / Monaco.ttf 放到
+   source/medias/fonts/ 下，启用下面的 @font-face，并把 'JVer' / 'JMon'
+   加到对应字体栈最前面（两者均为商业字体，需自行取得授权）。
+   ========================================================================== */
+/*
+@font-face {
+    font-family: 'JVer';
+    src: url('/medias/fonts/Verdana.ttf') format('truetype');
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'JMon';
+    src: url('/medias/fonts/Monaco.ttf') format('truetype');
+    font-display: swap;
+}
+*/
+
+:root {
+    /* 全站正文字体：Verdana（西文/数字）+ 系统中文字体 */
+    --site-font: Verdana, Geneva, "DejaVu Sans", "Microsoft YaHei", "PingFang SC",
+        "Hiragino Sans GB", "Heiti SC", "WenQuanYi Micro Hei", sans-serif;
+    /* 代码字体：与参考站一致的等宽栈 */
+    --site-code-font: Inconsolata, Monaco, Consolas, "Courier New", Courier, monospace;
+}
+
+html,
+body,
+button, input, optgroup, select, textarea,
+h1, h2, h3, h4, h5, h6,
+p, a, span, strong, em, small, li, dt, dd, blockquote, td, th, label, legend,
+.btn, .btn-flat, .btn-floating, .chip,
+.card, .card-title, .card-content, .post-title, .article-content, .post-description,
+.bg-cover .title, .bg-cover .description, .post-cover .post-title,
+.nav-menu, .nav-menu span, .sub-nav span, .logo-span, .brand-logo,
+.copy-right, .page-footer, .page-footer a,
+.toc-title, #toc-content, .toc-link,
+.card .card-action, .card .card-content .summary,
+.post-outdated-notice,
+.social-link, .social-link a {
+    font-family: var(--site-font);
+}
+
+/* 代码块 / 行内代码（参考站等宽栈） */
+code, kbd, samp, pre, .hljs,
+pre[class*="language-"], code[class*="language-"],
+.code_lang, .code_copy, .code_block, .code-block,
+.prism, .line-numbers, .line-numbers-rows {
+    font-family: var(--site-code-font) !important;
+}
+
+/* 说明：第三方「分享」组件（share.min.css）自身用 socialshare 图标字体渲染，
+   中文靠字体回退显示，这里不做覆盖，避免图标变成方块。 */

@@ -14,18 +14,123 @@
                 <span id="subtitle"></span>
                 <script src="<%- theme.jsDelivr.url %><%- url_for(theme.libs.js.typed) %>"></script>
                 <script>
-                    var typed = new Typed("#subtitle", {
-                        strings: [ 
-                            <% theme.subtitle.sub.forEach(function(item){%>
-                                "<%= item %>",
-                            <% }) %>
-                        ],
-                        startDelay: <%= theme.subtitle.startDelay %>,
-                        typeSpeed: <%= theme.subtitle.typeSpeed %>,
-                        loop: <%= theme.subtitle.loop %>,
-                        backSpeed: <%= theme.subtitle.backSpeed %>,
-                        showCursor: <%= theme.subtitle.showCursor %>
-                    });
+                    (function () {
+                        // 本地兜底文案：一言接口不可用（被墙 / 离线），或 source: static 时使用
+                        var fallbackStrings = <%- JSON.stringify((theme.subtitle.sub || ['宁静致远']).filter(function (item) {
+                            return item && String(item).trim().length > 0;
+                        })) %>;
+                        if (!fallbackStrings.length) {
+                            fallbackStrings = ['宁静致远'];
+                        }
+
+                        var useHitokoto = '<%- theme.subtitle.source || "static" %>' === 'hitokoto';
+                        var apiUrl = '<%- theme.subtitle.api || "https://v1.hitokoto.cn/?encode=text&charset=utf-8" %>';
+                        var category = '<%- theme.subtitle.category || "" %>';
+                        if (useHitokoto && category) {
+                            // 支持逗号分隔的多个分类，如 "d,i,k"
+                            category.split(',').forEach(function (item) {
+                                item = item.trim();
+                                if (item) {
+                                    apiUrl += (apiUrl.indexOf('?') === -1 ? '?' : '&') + 'c=' + encodeURIComponent(item);
+                                }
+                            });
+                        }
+
+                        var loopEnabled = <%- theme.subtitle.loop === true %>;
+                        var quoteCount = <%- theme.subtitle.quoteCount || 5 %>;
+                        // 每条展示时长（毫秒）
+                        var refreshInterval = <%- theme.subtitle.refreshInterval || 4000 %>;
+                        var typedOptions = {
+                            startDelay: <%- theme.subtitle.startDelay === undefined ? 300 : theme.subtitle.startDelay %>,
+                            typeSpeed: <%- theme.subtitle.typeSpeed || 100 %>,
+                            backSpeed: <%- theme.subtitle.backSpeed || 50 %>,
+                            backDelay: refreshInterval,
+                            showCursor: <%- theme.subtitle.showCursor !== false %>,
+                            contentType: 'text',
+                            loop: false
+                        };
+
+                        var typed = null;
+
+                        function startTyped(strings) {
+                            if (!strings || !strings.length) {
+                                strings = fallbackStrings.slice();
+                            }
+                            if (!loopEnabled) {
+                                strings = [strings[0]];
+                            }
+                            if (typed) {
+                                typed.destroy();
+                            }
+                            var el = document.getElementById('subtitle');
+                            if (el) {
+                                el.textContent = '';
+                            }
+                            typed = new Typed('#subtitle', Object.assign({}, typedOptions, {
+                                strings: strings,
+                                loop: strings.length > 1
+                            }));
+                        }
+
+                        // 预取若干条一言，交给 Typed 自己循环，避免每句都重建实例
+                        function fetchQuotes(count) {
+                            var tasks = [];
+                            for (var i = 0; i < count; i++) {
+                                var url = apiUrl + (apiUrl.indexOf('?') === -1 ? '?' : '&') + '_t=' + (Date.now() + i);
+                                tasks.push(
+                                    fetch(url, { cache: 'no-store' })
+                                        .then(function (res) {
+                                            if (!res.ok) {
+                                                throw new Error('HTTP ' + res.status);
+                                            }
+                                            return res.text();
+                                        })
+                                        .then(function (text) {
+                                            return (text || '').trim();
+                                        })
+                                        .catch(function () {
+                                            return null;
+                                        })
+                                );
+                            }
+                            return Promise.all(tasks);
+                        }
+
+                        if (!useHitokoto || typeof fetch !== 'function') {
+                            startTyped(fallbackStrings);
+                            return;
+                        }
+
+                        // 接口 2 秒还没回来时先用本地文案顶住，防止 banner 空着
+                        var started = false;
+                        var fallbackTimer = setTimeout(function () {
+                            if (!started) {
+                                started = true;
+                                startTyped(fallbackStrings);
+                            }
+                        }, 2000);
+
+                        fetchQuotes(quoteCount).then(function (quotes) {
+                            clearTimeout(fallbackTimer);
+                            var seen = {};
+                            var unique = [];
+                            quotes.forEach(function (quote) {
+                                // 过滤空值、超长内容与重复项
+                                if (!quote || quote.length > 80 || seen[quote]) {
+                                    return;
+                                }
+                                seen[quote] = true;
+                                unique.push(quote);
+                            });
+                            if (unique.length) {
+                                started = true;
+                                startTyped(unique);
+                            } else if (!started) {
+                                started = true;
+                                startTyped(fallbackStrings);
+                            }
+                        });
+                    })();
                 </script>
                 <% } else { %>
                     <%= config.description %>

@@ -3,17 +3,20 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
-subtitle: ''
-description: ''
-keywords:
-author: John Doe
-language: en
-timezone: ''
+title: Mason
+subtitle: '宁静致远'
+description: 'Mason 的个人博客，记录网络安全研究、渗透测试、代码审计与工程实践。'
+keywords: 'Mason, 网络安全, 渗透测试, 代码审计, 漏洞分析, 安全研究'
+author: Mason
+language: zh-CN
+timezone: 'Asia/Shanghai'
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: http://example.com
+## GitHub Pages 项目站点写法：url 带上仓库名，root 为 /仓库名/
+## 若绑定自定义域名，请把 url 改为 https://你的域名，并把 root 改为 /
+url: https://www.memme.cn
+root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
@@ -40,17 +43,19 @@ external_link:
   exclude: ''
 filename_case: 0
 render_drafts: false
-post_asset_folder: false
+post_asset_folder: true
 relative_link: false
 future: true
-syntax_highlighter: highlight.js
+syntax_highlighter: prismjs
 highlight:
+  enable: false
   line_number: true
   auto_detect: false
   tab_replace: ''
   wrap: true
   hljs: false
 prismjs:
+  enable: true
   preprocess: true
   line_number: true
   tab_replace: ''
@@ -61,11 +66,11 @@ prismjs:
 # order_by: Posts order. (Order by date descending by default)
 index_generator:
   path: ''
-  per_page: 10
+  per_page: 9
   order_by: -date
 
 # Category & Tag
-default_category: uncategorized
+default_category: 未分类
 category_map:
 tag_map:
 
@@ -84,7 +89,7 @@ updated_option: 'mtime'
 
 # Pagination
 ## Set per_page to 0 to disable pagination
-per_page: 10
+per_page: 9
 pagination_dir: page
 
 # Include / Exclude file(s)
@@ -98,7 +103,35 @@ ignore:
 ## Themes: https://hexo.io/themes/
 theme: hexo-theme-matery
 
-# Deployment
+# 站内搜索（依赖插件 hexo-generator-search）
+search:
+  path: search.xml
+  field: post
+  content: true
+  format: html
+
+# 中文链接转拼音（依赖插件 hexo-permalink-pinyin）
+permalink_pinyin:
+  enable: true
+  separator: '-' # default: '-'
+
+# RSS 订阅（依赖插件 hexo-generator-feed）
+feed:
+  type: atom
+  path: atom.xml
+  limit: 20
+  hub:
+  content:
+  content_limit: 140
+  content_limit_delim: ' '
+  order_by: -date
+
+# 部署
 ## Docs: https://hexo.io/docs/one-command-deployment
+## 例：GitHub Pages
+# deploy:
+#   type: git
+#   repo: https://github.com/MasonHello/hexo.git
+#   branch: gh-pages
 deploy:
   type: ''

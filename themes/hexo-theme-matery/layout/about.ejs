@@ -3,6 +3,43 @@
     .about-cover {
         height: 75vh;
     }
+
+    /* 关于页正文（source/about/index.md 中的 Markdown 内容）. */
+    .about-content {
+        text-align: left;
+        margin-top: 28px;
+        padding-top: 18px;
+        border-top: 1px dashed rgba(0, 0, 0, .12);
+        line-height: 1.8;
+    }
+
+    .about-content h2 {
+        font-size: 1.45rem;
+        font-weight: 600;
+        margin: 22px 0 12px;
+        padding-left: 10px;
+        border-left: 4px solid #0f9d58;
+    }
+
+    .about-content h3 {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin: 18px 0 10px;
+    }
+
+    .about-content p,
+    .about-content li {
+        font-size: .95rem;
+    }
+
+    .about-content ul {
+        margin: 8px 0 12px 22px;
+        list-style: disc;
+    }
+
+    body.dark .about-content h2 {
+        border-left-color: #9b9b9b;
+    }
 </style>
 
 <%- partial('_partial/bg-cover') %>
@@ -42,6 +79,12 @@
                 </div>
 
                 <div class="introduction center-align" data-aos="fade-up"><%= theme.profile.introduction %></div>
+
+                <% if (page.content && strip_html(page.content).trim().length > 0) { %>
+                <div class="about-content" data-aos="fade-up">
+                    <%- page.content %>
+                </div>
+                <% } %>
 
                 <%- partial('_widget/post-charts') %>
 

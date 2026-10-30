@@ -1,1 +1,95 @@
-/* Here is your custom css styles. */
+/* ==========================================================================
+   本站自定义样式
+   —— 全站视觉样式（含字体、代码字体）以 /css/reference-skin.css
+      （来源：https://jwt1399.top/）为准，
+      本文件只保留「参考站没有、但本站功能需要」的样式
+   ========================================================================== */
+
+/* ==========================================================================
+   文章页顶部「发布于 X 前」时效性提示（按发布时间分级）—— 本站功能，参考站无
+   ========================================================================== */
+.post-outdated-notice {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    margin: 2px 0 20px;
+    padding: 11px 15px;
+    font-size: .92rem;
+    line-height: 1.7;
+    border-left: 4px solid #ffb300;
+    border-radius: 4px;
+    word-break: break-word;
+    /* 级别 0：轻微提示（发布满 30 天） */
+    color: #6d4c41;
+    background: #fff8e1;
+}
+
+.post-outdated-notice .post-outdated-icon {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #ff8f00;
+}
+
+.post-outdated-notice .post-outdated-text strong {
+    font-weight: 600;
+    color: #e65100;
+}
+
+/* 级别 1：部分内容可能已不再适用（发布满 180 天） */
+.post-outdated-notice[data-level="1"] {
+    color: #8a4b08;
+    background: #fff3e0;
+    border-left-color: #fb8c00;
+}
+
+.post-outdated-notice[data-level="1"] .post-outdated-icon {
+    color: #ef6c00;
+}
+
+/* 级别 2：内容大概率已过时（发布满 1 年） */
+.post-outdated-notice[data-level="2"] {
+    color: #8e2a2a;
+    background: #fdecea;
+    border-left-color: #e53935;
+}
+
+.post-outdated-notice[data-level="2"] .post-outdated-icon {
+    color: #d32f2f;
+}
+
+.post-outdated-notice[data-level="2"] .post-outdated-text strong {
+    color: #c62828;
+}
+
+/* 深色模式 */
+body.DarkMode .post-outdated-notice {
+    color: #ffe0b2;
+    background: rgba(255, 179, 0, .12);
+    border-left-color: #ffb300;
+}
+
+body.DarkMode .post-outdated-notice .post-outdated-text strong {
+    color: #ffcc80;
+}
+
+body.DarkMode .post-outdated-notice[data-level="1"] {
+    color: #ffcc80;
+    background: rgba(251, 140, 0, .14);
+}
+
+body.DarkMode .post-outdated-notice[data-level="2"] {
+    color: #ffcdd2;
+    background: rgba(229, 57, 53, .16);
+    border-left-color: #ef5350;
+}
+
+body.DarkMode .post-outdated-notice[data-level="2"] .post-outdated-text strong {
+    color: #ff8a80;
+}
+
+@media only screen and (max-width: 601px) {
+    .post-outdated-notice {
+        font-size: .86rem;
+        padding: 10px 12px;
+    }
+}

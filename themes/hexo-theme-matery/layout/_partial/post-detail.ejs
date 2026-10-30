@@ -84,6 +84,90 @@
         <% } %>
 
         <div class="card-content article-card-content">
+            <% if (theme.postNotice && theme.postNotice.enable && page.date) { %>
+            <%
+                // 按“发布至今的天数”分级提示，levels 中 days 从小到大匹配第一个满足的级别
+                var noticeLevels = (theme.postNotice.levels || []).filter(function (level) {
+                    return level && level.text;
+                }).slice().sort(function (a, b) {
+                    return Number(a.days || 0) - Number(b.days || 0);
+                });
+            %>
+            <% if (noticeLevels.length) { %>
+            <!-- 文章时效性提示：根据发布时间自动分级，太新的文章不提示 -->
+            <div class="post-outdated-notice" id="post-outdated-notice" style="display: none;"
+                 data-timestamp="<%- page.date.valueOf() %>"
+                 data-date="<%- date(page.date, 'YYYY-MM-DD') %>"
+                 data-levels="<%= JSON.stringify(noticeLevels) %>">
+                <i class="post-outdated-icon fas fa-info-circle"></i>
+                <span class="post-outdated-text"></span>
+            </div>
+            <script>
+                (function () {
+                    var notice = document.getElementById('post-outdated-notice');
+                    if (!notice) { return; }
+
+                    var timestamp = parseInt(notice.getAttribute('data-timestamp'), 10);
+                    var publishDate = notice.getAttribute('data-date') || '';
+                    var levels = [];
+                    try {
+                        levels = JSON.parse(notice.getAttribute('data-levels') || '[]');
+                    } catch (e) {
+                        levels = [];
+                    }
+                    if (!timestamp || !levels.length) {
+                        notice.parentNode && notice.parentNode.removeChild(notice);
+                        return;
+                    }
+
+                    var diff = Date.now() - timestamp;
+                    if (diff < 0) { diff = 0; }
+                    var days = Math.floor(diff / 86400000);
+
+                    // 找到第一个满足“发布天数 >= days”的级别；都不满足说明文章还新，不提示
+                    var picked = null;
+                    var pickedIndex = -1;
+                    for (var i = 0; i < levels.length; i++) {
+                        if (days >= Number(levels[i].days || 0)) {
+                            picked = levels[i];
+                            pickedIndex = i;
+                        }
+                    }
+                    if (!picked) {
+                        notice.parentNode && notice.parentNode.removeChild(notice);
+                        return;
+                    }
+
+                    var ago;
+                    if (days < 1) {
+                        ago = '今天';
+                    } else if (days < 30) {
+                        ago = days + ' 天前';
+                    } else if (days < 365) {
+                        ago = Math.floor(days / 30) + ' 个月前';
+                    } else {
+                        ago = Math.floor(days / 365) + ' 年前';
+                    }
+
+                    var iconEl = notice.querySelector('.post-outdated-icon');
+                    if (iconEl) {
+                        iconEl.className = 'post-outdated-icon ' + (picked.icon || 'fas fa-info-circle');
+                    }
+
+                    var textEl = notice.querySelector('.post-outdated-text');
+                    if (textEl) {
+                        textEl.innerHTML = String(picked.text)
+                            .replace(/\{ago\}/g, '<strong>' + ago + '</strong>')
+                            .replace(/\{date\}/g, publishDate)
+                            .replace(/\{days\}/g, String(days));
+                    }
+
+                    notice.setAttribute('data-level', String(pickedIndex));
+                    notice.style.display = 'flex';
+                })();
+            </script>
+            <% } %>
+            <% } %>
             <div id="articleContent">
                 <%- page.content %>
                 <% if (theme.bbtime.enable && page.layout == 'bb') { %>
