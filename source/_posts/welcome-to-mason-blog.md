@@ -4,8 +4,8 @@ date: 2026-10-30 15:10:00
 author: Mason
 top: true
 cover: true
-coverImg: https://w.wallhaven.cc/full/8g/wallhaven-8g8q32.jpg
-img: https://w.wallhaven.cc/full/8g/wallhaven-8g8q32.jpg
+coverImg: /image/1.jpg
+img: /image/1.jpg
 summary: Mason Blog 正式上线。这里记录安全研究、漏洞分析、代码审计与工程实践，欢迎交流。
 categories: 随笔
 tags:
